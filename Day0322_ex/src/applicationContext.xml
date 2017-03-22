@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+<!-- 		데이터베이스 연결을 위한 정보를 내줘야됨	 -->
+<!-- 		java.sql.DataSource라는 인터페이스의 구현체로써 디비 연결정보를 줘야됨 -->
+<!-- 		스프링에서 제공하는 DataSource구현체중에 하나를 빈으로 등록해두고 JdbcTemplate에게먹여줍시다 -->
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		<property name="username" value="root"></property>
+		<property name="password" value="mysql"></property>
+		<property name="url" value="jdbc:mysql://localhost/product_db"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	</bean>
+	<bean class="dao.ProductDao" id="productDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+</beans>
