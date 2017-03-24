@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">	<!-- 매퍼설정파일의 최상위태그, 사용할 sql문들을 하나하나 등록 해둘것임 -->
+	<insert id="insert" parameterType="product">
+		insert into product values(0,#{name},#{price},#{pictureurl},#{description}) <!-- 파라미터로 받은 데이터가 모델클레스(getter를 갖는)거나 맵(키값)일경우 getter를 갖는 멤버변수명이나 맵의 키값을 써주면 그놈을 꺼내서 저자리에 둠 -->
+	</insert>
+	<select id="selectOne" parameterType="int" resultType="product">
+		select * from product where code=#{code}
+	</select>
+	<select id="selectAll" resultType="product"> <!-- 결과 데이터가 여러개여도 그냥 하나의 타입만 짖어해주면 부르는 놈이 알아서 list로 만들어 옴 -->
+		select * from product
+	</select>
+	<update id="update" parameterType="product">
+		update product set price=#{price} where code=#{code}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from product where code=#{code}
+	</delete>
+</mapper>
