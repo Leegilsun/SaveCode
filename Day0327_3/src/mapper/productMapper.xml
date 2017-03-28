@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IProductDao">
+	<sql id="columns">
+		select code, name, price, pictureurl as picture, description
+	</sql>
+	
+<!-- 	type : 모델클래스명, id : 이 리절트맵 이름 -->
+	<resultMap type="product" id="productMap">
+		
+		<id column="code" property="code"/>
+		<result column="name" property="name"/>
+		<result column="price" property="price"/>
+		<result column="pictureurl" property="picture"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<insert id="insertProduct" parameterType="product">
+		insert into product values(0, #{name}, #{price}, #{picture}, #{description})	<!-- 파라미터매핑할때는 이름 달라도 문제가 안됨 내가 직접이름 적어주는거라서... -->
+	</insert>
+	
+	<update id="updateProduct">
+		update product set name=#{name}, price=#{price}, pictureurl=#{picture}, description=#{description} where code=#{code}
+	
+	</update>
+	
+	<select id="selectOne">
+<!-- 		select <include refid="columns"></include>from product where code=#{code} -->
+		select * from product where code=#{code}
+	</select>
+	
+	<select id="selectAll" resultType="product" resultMap="productMap">
+<!-- 		select code, name, price, pictureurl as picture, description from product -->
+		select * from product;
+	</select>
+	
+</mapper>
