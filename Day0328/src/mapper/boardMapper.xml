@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IBoardDao">
+
+	<sql id="title">
+		<choose>
+			<when test="title != null">
+				#{title}
+			</when>
+			<otherwise>
+				'제목없음'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="name">
+		<choose>
+			<when test="name != null">
+				#{name}
+			</when>
+			<otherwise>
+				'이름없음'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="email">
+		<choose>
+			<when test="email != null">
+				#{email}
+			</when>
+			<otherwise>
+				'메일없음'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="content">
+		<choose>
+			<when test="content != null">
+				#{content}
+			</when>
+			<otherwise>
+				'내용없음'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="search">
+		<choose>
+			<when test="title == null and content != null">
+				where content like '%${content}%'
+			</when>
+			<when test="title != null and content == null">
+				where title like '%${title}%'
+			</when>
+			<when test="title != null and content != null">
+				where title like '%${title}%' or content like '%${content}%'
+			</when>
+			<when test="keyword == null and keyword2 == null">
+				 
+			</when>
+		</choose>
+	</sql>
+	<insert id="insertBoard" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="num">
+		insert into board values(0,#{pass},
+		<include refid="name"></include>,
+		<include refid="email"></include>,
+		<include refid="title"></include>,
+		<include refid="content"></include>,
+		#{readCount},sysdate())
+	</insert>
+	
+	<update id="updateBoard" parameterType="java.util.HashMap">
+		update board set pass=#{pass}, name=#{name}, email=#{email}, writedate=#{writedate}, readcount=#{readCount} where num=#{num} 
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where num=#{num}
+	</delete>
+	
+	<select id="selectOne" resultType="java.util.HashMap" parameterType="int">
+		select * from board where num=#{num}
+	</select>
+	
+	<select id="selectAll" resultType="java.util.HashMap">
+		select * from board;
+	</select>
+	
+	<select id="selectBySearch" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from board <include refid="search"></include> 
+	</select>
+	
+	<select id="selectPage" resultType="java.util.HashMap" parameterType="int">
+		select * from board limit #{keyowrd},10
+	</select>
+	
+	<select id="selectPagecnt" resultType="java.util.HashMap">
+		select count(*) from board
+	</select>
+</mapper>
