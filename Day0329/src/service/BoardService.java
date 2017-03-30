@@ -113,7 +113,11 @@ public class BoardService implements IBoardService{
 	@Override
 	public List<HashMap<String, Object>> selectBoardLimit(int page, int getBoardCount) {
 		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object>params = new HashMap<>();
+		params.put("skip", page);
+		params.put("count", getBoardCount);
+		List<HashMap<String, Object>> list = dao.selectBoardLimit(params);
+		return list;
 	}
 
 	@Override
