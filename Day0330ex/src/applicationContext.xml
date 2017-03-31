@@ -14,11 +14,16 @@
 	<property name="url" value="jdbc:mysql://localhost/product_db"></property>
 </bean>
 
-<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 	<property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
 	<property name="typeAliasesPackage" value="model"></property>
 	<property name="dataSource" ref="dataSource"></property>
 </bean>
 
+<!-- 이 친구가 SqlSession인터페이스에 대한 마이바티스스프링 연동버전의 구현체 -->
+<bean class="org.mybatis.spring.SqlSessionTemplate">
+<!-- 팩토리를 주입시켜서 SqlSession객체 생성 -->
+	<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+</bean>
 
 </beans>
