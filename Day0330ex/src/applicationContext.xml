@@ -5,8 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-<context:component-scan base-package="dao"></context:component-scan>
-
 <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	<property name="username" value="root"></property>
@@ -21,9 +19,18 @@
 </bean>
 
 <!-- 이 친구가 SqlSession인터페이스에 대한 마이바티스스프링 연동버전의 구현체 -->
-<bean class="org.mybatis.spring.SqlSessionTemplate">
+<!-- <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> -->
 <!-- 팩토리를 주입시켜서 SqlSession객체 생성 -->
-	<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+<!-- 	<constructor-arg ref="sqlSessionFactory"></constructor-arg> -->
+<!-- </bean> -->
+
+
+<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="productDao">
+<!-- 	<property name="sqlSessionTemplate" ref="sqlSession"></property> -->
+<!-- 위에걸 주던가 아래걸 주던가 -->
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	<property name="mapperInterface" value="dao.IProductDao"></property>
 </bean>
+<!-- 애가 곧 dao클래스임  dao인터페이스를 인플리먼츠해서 클래스를 작성할 필요 ㄴㄴ -->
 
 </beans>
