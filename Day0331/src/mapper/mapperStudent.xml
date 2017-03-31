@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper     
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IStudentDao">
+
+<insert id="insertStudent" parameterType="java.util.HashMap">
+	insert into student values(0,#{s_id},#{name},#{age},#{score})
+</insert>
+
+<update id="updateStudent" parameterType="java.util.HashMap">
+	update student set name=#{name}, age=#{age}, score=#{score} where s_id=#{s_id} 
+</update>
+
+<delete id="deleteStudent" parameterType="int">
+	delete from student where s_id=#{s_id}
+</delete>
+
+<select id="selectOne" resultType="java.util.HashMap" parameterType="int">
+	select * from student where s_id=#{s_id}
+</select>
+
+<select id="selectAll" resultType="java.util.HashMap">
+	select * from student
+</select>
+
+</mapper>
