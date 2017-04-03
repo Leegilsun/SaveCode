@@ -9,7 +9,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 <!-- 	type : 모델클래스명, id : 이 리절트맵 이름 -->
 	<resultMap type="product" id="productMap">
-		
 		<id column="code" property="code"/>
 		<result column="name" property="name"/>
 		<result column="price" property="price"/>

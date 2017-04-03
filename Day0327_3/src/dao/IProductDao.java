@@ -10,4 +10,5 @@ public interface IProductDao {
 	public int deleteProduct(int code);
 	public Product selectOne(int code);
 	public List<Product> selectAll();
+	
 }

@@ -67,4 +67,5 @@ public class ProductDao implements IProductDao{
 			session.close();
 		}
 	}
+	
 }
