@@ -4,20 +4,17 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-
 <bean class="aop01.Boy" id="boy"></bean>
 <bean class="aop01.Girl" id="girl"></bean>
 <bean class="aop01.PersonAspect" id="personAspect"></bean>
-
 <aop:config>
 	<aop:aspect ref="personAspect">
-		<aop:pointcut expression="execution(public void aop01.*.doSomeThing())" id="pt"/>
-		<aop:before method="doBefore" pointcut-ref="pt"/>
-		<aop:after-returning method="doAfterReturning" pointcut-ref="pt"/>
-		<aop:after-throwing method="doAfterThrowing" pointcut-ref="pt"/>
-		<aop:after method="doAfter" pointcut-ref="pt"/>
+		<aop:pointcut expression="execution(public String aop01.*.doSomeThing())" id="pt"/>
+<!-- 		<aop:before method="doBefore" pointcut-ref="pt"/> -->
+<!-- 		<aop:after-returning method="doAfterReturning" pointcut-ref="pt" returning="st"/> -->
+<!-- 		<aop:after-throwing method="doAfterThrowing" pointcut-ref="pt" throwing="th"/> -->
+<!-- 		<aop:after method="doAfter" pointcut-ref="pt"/> -->
 		<aop:around method="around" pointcut-ref="pt"/>
 	</aop:aspect>
 </aop:config>
-
 </beans>
