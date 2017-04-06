@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-${greeting }
+${greeting } 
+${yourIP }
+${yourName }
+${yourAge }
 </body>
 </html>
